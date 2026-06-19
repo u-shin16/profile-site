@@ -118,6 +118,12 @@ h1 {
   font-weight: 700;
 }
 
+.profile-actions {
+  display: grid;
+  gap: 10px;
+}
+
+.official-site,
 .contact {
   display: inline-block;
   width: 100%;
@@ -133,6 +139,13 @@ h1 {
   transition: transform 0.18s ease, border-color 0.18s ease, box-shadow 0.18s ease;
 }
 
+.official-site {
+  border-color: rgba(0, 119, 156, 0.28);
+  background: linear-gradient(135deg, #008fba, #37bddf);
+  color: #fff;
+}
+
+.official-site:hover,
 .contact:hover,
 .link-card:hover {
   transform: translateY(-3px);
@@ -144,6 +157,7 @@ h1 {
   display: grid;
   gap: 22px;
 }
+
 
 .section-block {
   padding: 30px;
@@ -234,6 +248,7 @@ p {
   .profile {
     position: static;
   }
+
 
   .section-block {
     padding: 24px;
