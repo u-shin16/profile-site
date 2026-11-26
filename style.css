@@ -1,264 +1,468 @@
-* {
+/* プロフィール（2026-11-25 作り直し）
+   方針：ホームページ（webtool-labs.com）と同じ「文字だけ・左寄せ・水色の面」。
+   採用担当が最初の画面で「誰で、何をしている人か」を読めることを優先する。
+   図形・すりガラス・影・動きは使わない。 */
+
+*,
+*::before,
+*::after {
   box-sizing: border-box;
 }
 
 :root {
-  --bg: #dff7ff;
-  --bg-deep: #b9ecfb;
-  --panel: rgba(255, 255, 255, 0.82);
-  --ink: #12313b;
-  --muted: #597681;
-  --line: rgba(18, 49, 59, 0.14);
-  --accent: #0099c2;
-  --accent-soft: #eafaff;
-  --shadow: rgba(12, 81, 103, 0.12);
+  --ink: #111;
+  --text: #333;
+  --muted: #6b6b6b;
+  --line: #e3e3e3;
+  --navy: #0b2a4a;
+  --sky: #eef8fd;
+  --sky-strong: #9bd9f5;
+  --blue: #0a7bb8;
+  --content: 1040px;
+  --side: 48px;
+  --en: "Barlow Condensed", "Arial Narrow", sans-serif;
+  --jp: -apple-system, BlinkMacSystemFont, "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Noto Sans JP", "Yu Gothic", sans-serif;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
 }
 
 body {
   margin: 0;
-  min-height: 100vh;
-  color: var(--ink);
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Helvetica Neue", sans-serif;
-  background:
-    linear-gradient(135deg, rgba(255, 255, 255, 0.68) 0 17%, transparent 17%),
-    linear-gradient(315deg, rgba(0, 153, 194, 0.14) 0 22%, transparent 22%),
-    repeating-linear-gradient(90deg, rgba(255, 255, 255, 0.18) 0 1px, transparent 1px 72px),
-    linear-gradient(180deg, var(--bg), var(--bg-deep));
-}
-
-.page {
-  width: min(1060px, calc(100% - 48px));
-  min-height: 100vh;
-  margin: 0 auto;
-  padding: 64px 0;
-  display: grid;
-  grid-template-columns: 330px 1fr;
-  gap: 28px;
-  align-items: start;
-}
-
-.profile {
-  position: sticky;
-  top: 40px;
-  padding: 30px;
-  border: 1px solid var(--line);
-  border-radius: 8px;
-  background: var(--panel);
-  box-shadow: 0 22px 48px var(--shadow);
-  backdrop-filter: blur(18px);
-  overflow: hidden;
-}
-
-.profile::before {
-  content: "";
-  position: absolute;
-  inset: 0 0 auto;
-  height: 6px;
-  background: linear-gradient(90deg, var(--accent), rgba(0, 153, 194, 0.18));
-}
-
-.avatar-shell {
-  width: 148px;
-  height: 148px;
-  padding: 8px;
-  border: 1px solid var(--line);
-  border-radius: 50%;
+  color: var(--text);
   background: #fff;
-  box-shadow: 0 14px 28px var(--shadow);
+  font-family: var(--jp);
+  font-size: 16px;
+  line-height: 1.9;
+  overflow-wrap: anywhere;
+}
+
+a {
+  color: var(--blue);
+}
+
+a:hover {
+  opacity: .75;
+}
+
+:focus-visible {
+  outline: 2px solid var(--blue);
+  outline-offset: 3px;
+}
+
+.wrap {
+  width: 100%;
+  max-width: calc(var(--content) + var(--side) * 2);
+  margin: 0 auto;
+  padding: 0 var(--side);
+}
+
+/* ---- 1. プロフィール：水色の面 ---- */
+.hero {
+  background: var(--sky);
+  color: var(--navy);
+  padding: clamp(56px, 9vw, 120px) 0 clamp(48px, 7vw, 88px);
 }
 
 .avatar {
   display: block;
-  width: 100%;
-  height: 100%;
+  width: 96px;
+  height: 96px;
   border-radius: 50%;
-  object-fit: cover;
   background: #fff;
+  object-fit: cover;
+  margin-bottom: 28px;
 }
 
+.hero-label,
 .eyebrow {
-  margin: 26px 0 12px;
-  color: var(--accent);
-  font-size: 14px;
+  margin: 0;
+  font-family: var(--en);
+  font-weight: 700;
+  letter-spacing: .16em;
+}
+
+.hero-label {
+  font-size: 18px;
+}
+
+.hero h1 {
+  margin: 8px 0 20px;
+  font-size: clamp(36px, 6vw, 56px);
+  line-height: 1.25;
+  font-weight: 900;
+  letter-spacing: .02em;
+  color: var(--navy);
+  font-feature-settings: "palt";
+}
+
+.hero h1 .reading {
+  display: block;
+  margin-top: 6px;
+  font-size: clamp(15px, 1.8vw, 18px);
+  font-weight: 700;
+  letter-spacing: .04em;
+}
+
+.hero p {
+  margin: 0;
+}
+
+.hero-school {
+  font-size: 15px;
   font-weight: 700;
 }
 
-h1 {
-  margin: 0 0 10px;
-  font-size: 44px;
-  line-height: 1;
-  letter-spacing: 0;
+.hero-copy {
+  margin-top: 16px !important;
+  font-size: clamp(18px, 2.4vw, 24px);
+  line-height: 1.6;
+  font-weight: 700;
+  color: var(--ink);
+  max-width: 34em;
 }
 
-.subtitle {
-  max-width: 16em;
-  margin: 0;
-  color: var(--muted);
-  line-height: 1.8;
+.hero-job {
+  margin-top: 16px !important;
+  font-size: 15px;
 }
 
-.hero-tags {
+.page-nav {
   display: flex;
   flex-wrap: wrap;
-  gap: 8px;
-  margin: 22px 0 28px;
-}
-
-.hero-tags span,
-.link-card span {
-  display: inline-flex;
-  align-items: center;
-  min-height: 30px;
-  padding: 5px 9px;
-  border: 1px solid var(--line);
-  border-radius: 999px;
-  background: var(--accent-soft);
-  color: var(--accent);
-  font-size: 12px;
+  gap: 8px 24px;
+  margin-top: 40px;
+  padding-top: 20px;
+  border-top: 1px solid rgba(11, 42, 74, .2);
+  font-size: 14px;
   font-weight: 700;
 }
 
-.profile-actions {
-  display: grid;
-  gap: 10px;
-}
-
-.official-site,
-.contact {
-  display: inline-block;
-  width: 100%;
-  padding: 13px 16px;
-  border: 1px solid var(--line);
-  border-radius: 8px;
-  background: #fff;
-  color: var(--ink);
-  font-weight: 800;
-  text-align: center;
+.page-nav a {
+  color: var(--navy);
   text-decoration: none;
-  box-shadow: 0 12px 24px var(--shadow);
-  transition: transform 0.18s ease, border-color 0.18s ease, box-shadow 0.18s ease;
 }
 
-.official-site {
-  border-color: rgba(0, 119, 156, 0.28);
-  background: linear-gradient(135deg, #008fba, #37bddf);
-  color: #fff;
+.page-nav a:hover {
+  text-decoration: underline;
+  opacity: 1;
 }
 
-.official-site:hover,
-.contact:hover,
-.link-card:hover {
-  transform: translateY(-3px);
-  border-color: rgba(0, 153, 194, 0.28);
-  box-shadow: 0 18px 32px rgba(12, 81, 103, 0.16);
+/* ---- セクション共通 ---- */
+.section {
+  padding-top: clamp(72px, 9vw, 112px);
 }
 
-.content {
-  display: grid;
-  gap: 22px;
-}
-
-
-.section-block {
-  padding: 30px;
-  border: 1px solid var(--line);
-  border-radius: 8px;
-  background: rgba(255, 255, 255, 0.72);
-  box-shadow: 0 18px 40px var(--shadow);
-}
-
-.section-label {
+.section-heading {
   display: flex;
-  align-items: center;
-  gap: 10px;
-  margin: 0 0 14px;
-  color: var(--accent);
-  font-size: 13px;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 4px 16px;
+  margin-bottom: 32px;
+}
+
+.section-heading .eyebrow {
   font-weight: 800;
-}
-
-.section-label::after {
-  content: "";
-  flex: 1;
-  height: 1px;
-  background: var(--line);
-}
-
-h2 {
-  max-width: 18em;
-  margin: 0;
-  font-size: 28px;
-  line-height: 1.45;
-  letter-spacing: 0;
-}
-
-p {
-  color: var(--muted);
-  line-height: 1.8;
-}
-
-.links {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 12px;
-}
-
-.link-card {
-  position: relative;
-  min-height: 144px;
-  padding: 18px;
-  border: 1px solid var(--line);
-  border-radius: 8px;
-  background: rgba(255, 255, 255, 0.84);
+  font-size: clamp(40px, 5vw, 56px);
+  line-height: 1;
+  letter-spacing: .02em;
   color: var(--ink);
-  text-decoration: none;
-  box-shadow: 0 10px 24px var(--shadow);
-  overflow: hidden;
-  transition: transform 0.18s ease, border-color 0.18s ease, box-shadow 0.18s ease;
 }
 
-.link-card::after {
-  content: "";
-  position: absolute;
-  right: 0;
-  bottom: 0;
-  width: 68px;
-  height: 68px;
-  background: linear-gradient(135deg, transparent 50%, rgba(0, 153, 194, 0.12) 50%);
-  pointer-events: none;
-}
-
-.link-card h3 {
-  margin: 18px 0 8px;
-  font-size: 20px;
-}
-
-.link-card p {
+.section-heading h2 {
   margin: 0;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--ink);
+}
+
+.prose {
+  max-width: 44em;
+}
+
+.prose p {
+  margin: 0 0 1em;
+}
+
+/* ---- 3. 代表作：水色の面で1つだけ大きく ---- */
+.featured {
+  background: var(--sky);
+  padding: clamp(28px, 5vw, 56px);
+}
+
+.work-name {
+  margin: 0;
+  font-size: clamp(24px, 3vw, 32px);
+  line-height: 1.4;
+  font-weight: 900;
+  color: var(--navy);
+}
+
+.work-lead {
+  margin: 8px 0 0;
+  font-size: 17px;
+  font-weight: 700;
+  line-height: 1.7;
+  color: var(--ink);
+}
+
+.featured-body {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 32px 48px;
+  margin-top: 36px;
+}
+
+.featured-part h4 {
+  margin: 0 0 10px;
+  padding-top: 14px;
+  border-top: 2px solid var(--navy);
+  font-size: 16px;
+  color: var(--navy);
+}
+
+.featured-part p {
+  margin: 0 0 .8em;
+  font-size: 15px;
+}
+
+.featured-part ul {
+  margin: 0;
+  padding-left: 1.2em;
+  font-size: 15px;
+}
+
+.featured-part li + li {
+  margin-top: .5em;
+}
+
+.featured .work-meta {
+  margin-top: 32px;
+}
+
+/* ---- 4. 作品一覧：線で区切った縦の一覧 ---- */
+.work-list {
+  border-top: 1px solid var(--ink);
+}
+
+.work {
+  padding: 36px 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.work .work-name {
+  font-size: 22px;
+}
+
+.work .work-lead {
+  font-size: 16px;
+}
+
+.work-meta {
+  margin: 20px 0 0;
+}
+
+.work-meta > div {
+  display: grid;
+  grid-template-columns: 8em minmax(0, 1fr);
+  gap: 4px 24px;
+  padding: 8px 0;
+}
+
+.work-meta dt {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--muted);
+}
+
+.work-meta dd {
+  margin: 0;
+  font-size: 15px;
+  max-width: 44em;
+}
+
+.work-links {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px 24px;
+  margin: 20px 0 0;
+}
+
+.button {
+  display: inline-block;
+  padding: 10px 26px;
+  border-radius: 999px;
+  background: var(--blue);
+  color: #fff;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1.5;
+  text-decoration: none;
+}
+
+.button-dark {
+  background: var(--navy);
+}
+
+.text-link {
+  font-size: 14px;
+  font-weight: 700;
+}
+
+/* ---- 5. 大事にしていること：太線の上に見出し ---- */
+.values {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 32px;
+}
+
+.value {
+  padding-top: 18px;
+  border-top: 2px solid var(--navy);
+}
+
+.value h3 {
+  margin: 0 0 8px;
+  font-size: 18px;
+  line-height: 1.5;
+  color: var(--ink);
+}
+
+.value p {
+  margin: 0;
+  font-size: 15px;
+}
+
+/* ---- 6・7. 項目と本文の行 ---- */
+.rows {
+  margin: 0;
+  border-top: 1px solid var(--ink);
+}
+
+.rows > div {
+  display: grid;
+  grid-template-columns: 10em minmax(0, 1fr);
+  gap: 4px 24px;
+  padding: 20px 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.rows dt {
+  font-weight: 700;
+  color: var(--ink);
+}
+
+.rows dd {
+  margin: 0;
+  max-width: 44em;
+}
+
+/* ---- 8. リンク ---- */
+.link-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  border-top: 1px solid var(--ink);
+}
+
+.link-list li {
+  border-bottom: 1px solid var(--line);
+}
+
+.link-list a {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 4px 24px;
+  padding: 18px 0;
+  color: var(--ink);
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.link-list .url {
+  color: var(--blue);
+  font-weight: 400;
   font-size: 14px;
 }
 
-@media (max-width: 760px) {
-  .page {
-    width: min(100% - 36px, 1080px);
-    padding: 32px 0 46px;
+/* ---- 9. 連絡先：濃い水色の帯 ---- */
+.contact {
+  margin-top: clamp(72px, 9vw, 112px);
+  background: var(--sky-strong);
+  color: #06304d;
+  padding: clamp(48px, 7vw, 88px) 0;
+}
+
+.contact .eyebrow {
+  font-weight: 800;
+  font-size: clamp(40px, 5vw, 56px);
+  line-height: 1;
+  letter-spacing: .02em;
+}
+
+.contact h2 {
+  margin: 8px 0 12px;
+  font-size: 15px;
+}
+
+.contact p:not(.eyebrow) {
+  margin: 0 0 24px;
+}
+
+.footer {
+  padding: 24px 0;
+  font-size: 13px;
+  color: var(--muted);
+}
+
+.footer p {
+  margin: 0;
+}
+
+/* ---- タブレット ---- */
+@media (max-width: 900px) {
+  .values {
     grid-template-columns: 1fr;
+    gap: 28px;
+  }
+}
+
+/* ---- スマホ ---- */
+@media (max-width: 700px) {
+  :root {
+    --side: 20px;
   }
 
-  .profile {
-    position: static;
+  body {
+    font-size: 15px;
   }
 
-
-  .section-block {
-    padding: 24px;
+  .featured {
+    margin: 0 calc(var(--side) * -1);
+    padding: 32px var(--side);
   }
 
-  h2 {
-    font-size: 24px;
-  }
-
-  .links {
+  .featured-body {
     grid-template-columns: 1fr;
+    gap: 28px;
+  }
+
+  .work-meta > div,
+  .rows > div {
+    grid-template-columns: 1fr;
+    gap: 2px;
+  }
+
+  .rows > div {
+    padding: 16px 0;
+  }
+
+  .page-nav {
+    gap: 6px 18px;
+    font-size: 13px;
   }
 }
