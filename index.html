@@ -482,6 +482,15 @@ footer .wrap { display: flex; justify-content: space-between; }
   $('scrim').addEventListener('click', close);
   addEventListener('keydown', e => { if (e.key === 'Escape') close(); });
 
+  /* メニューで移動しても、アドレスの後ろに #works などを付けない */
+  document.querySelectorAll('a[href^="#"]').forEach(link => link.addEventListener('click', e => {
+    const to = document.getElementById(link.hash.slice(1));
+    if (!to) return;
+    e.preventDefault();
+    to.scrollIntoView();
+  }));
+  if (location.hash) addEventListener('load', () => history.replaceState(null, '', location.pathname + location.search));
+
   /* 数を一気に */
   const count = el => {
     if (reduce) return;
