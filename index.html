@@ -141,9 +141,12 @@ section.s { padding: 120px 0; }
 
 /* ---- 詳しい所（右から出る） ---- */
 .scrim { position: fixed; inset: 0; z-index: 60; background: rgba(17, 17, 17, .35); opacity: 0; pointer-events: none; transition: opacity .35s; }
-.panel { position: fixed; top: 0; right: 0; bottom: 0; z-index: 61; width: min(620px, 100%); background: #fff; overflow-y: auto; transform: translateX(104%); transition: transform .55s var(--ease); }
+.panel { position: fixed; top: 0; right: 0; bottom: 0; z-index: 61; width: min(620px, 100%); background: #fff; overflow-y: auto; overscroll-behavior: contain; transform: translateX(104%); transition: transform .55s var(--ease); }
 .open .scrim { opacity: 1; pointer-events: auto; }
 .open .panel { transform: none; }
+/* 詳しい所を開いている間は、後ろを動かさない */
+html:has(body.open) { overflow: hidden; }
+.scrim { touch-action: none; }
 .panel .top { position: relative; padding: 64px 36px 52px; overflow: hidden; }
 .panel .top .paint { left: -20px; right: -20px; top: -20px; bottom: 0; clip-path: none; }
 .panel .top > *:not(.paint) { position: relative; z-index: 1; color: var(--on-accent); }
